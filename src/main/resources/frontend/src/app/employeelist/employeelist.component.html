@@ -1,0 +1,74 @@
+<div id="employeeUpdatedSuccessAlert" class="position-fixed" style="z-index: 10;bottom:5vh; right:5vh;display: none;
+     opacity: 0; transition: opacity 750ms">
+  <div class="alert alert-success" role="alert">
+    Employee updated!
+  </div>
+</div>
+<div class="row" style="margin-top:12vh;">
+  <div class="col">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="searchInputSpan">Search</span>
+      <input [(ngModel)]="searchInput" type="text" class="form-control" placeholder="First name, last name or email"
+             aria-label="First name, last name or email"
+             aria-describedby="searchInputSpan">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="accordion accordion-flush text-dark rounded-3" id="employeeAcordion">
+      <div class="accordion-item" *ngFor="let employee of employeeList | searchfilter:searchInput">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#flush-collapse-'+employee.id" aria-expanded="false"
+                  [attr.aria-controls]="'flush-collapse-'+employee.id">
+            <img src="https://deliamuresan.ro/wp-content/uploads/2020/10/default-user-image.png"
+                 class="img-thumbnail rounded-circle me-3" style="width:64px">
+            <h6>{{employee.firstName + " " + employee.lastName}}</h6>
+          </button>
+        </h2>
+        <div [attr.id]="'flush-collapse-'+employee.id" class="accordion-collapse collapse pt-1 pb-1"
+             [attr.aria-labelledby]="'flush-collapse-'+employee.id"
+             data-bs-parent="#employeeAcordion">
+          <table class="table text-info">
+            <thead>
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th *ngIf="loggedInUser.isAdmin" scope="col">Salary</th>
+              <th *ngIf="loggedInUser.isAdmin" scope="col">IsAdmin</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="loggedInUser.isAdmin">
+              <td><input [(ngModel)]="employee.firstName" (change)="inputUpdate(employee)" type="text"
+                         class="form-control"></td>
+              <td><input [(ngModel)]="employee.lastName" (change)="inputUpdate(employee)" type="text"
+                         class="form-control"></td>
+              <td><input [(ngModel)]="employee.email" (change)="inputUpdate(employee)" type="text"
+                         class="form-control"></td>
+              <td><input [(ngModel)]="employee.salary" (change)="inputUpdate(employee)" type="number"
+                         class="form-control"></td>
+              <td>
+                <div class="form-check form-switch" *ngIf="loggedInUser.id !== employee.id">
+                  <input [(ngModel)]="employee.isAdmin" (change)="inputUpdate(employee)" class="form-check-input" type="checkbox" role="switch">
+                </div>
+                <div class="form-check form-switch" *ngIf="loggedInUser.id == employee.id">
+                  <input disabled [(ngModel)]="employee.isAdmin" class="form-check-input" type="checkbox" role="switch">
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="!loggedInUser.isAdmin">
+              <td>{{employee.firstName}}</td>
+              <td>{{employee.lastName}}</td>
+              <td>{{employee.email}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

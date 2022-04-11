@@ -1,0 +1,92 @@
+<h1>Hello, {{employee.firstName + " " + employee.lastName}}</h1>
+<h4>This is your task manager</h4>
+<p>You can add,update and remove your personal tasks</p>
+<div class="row">
+  <div class="col">
+    <div class="btn btn-success mb-3 float-end" data-bs-toggle="modal" data-bs-target="#modalDeAdaugareTaskNou"><i class="bi-plus"></i> Add</div>
+  </div>
+</div>
+<div class="row justify-content-center text-center border rounded-3 p-3 bg-light">
+  <div class="col-4 p-3">
+    <h5>Tasks</h5>
+    <hr>
+    <div class="mb-1" *ngFor="let task of tasksNew">
+      <div class="row border rounded-3 lucianTaskHover" (click)="updateTask(task)">
+        <div class="col-10 bg-danger p-2">
+          <div class="row">
+            <div class="col"><h4>{{task.title}}</h4></div>
+          </div>
+          <div class="row">
+            <div class="col"><p>{{task.description}}</p></div>
+          </div>
+        </div>
+        <div class="col-2 m-auto">
+          <div class="bi-chevron-compact-right fs-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-5 p-3 border-start border-end">
+    <h5>In progress</h5>
+    <hr>
+    <div class="mb-1" *ngFor="let task of tasksInProgress">
+      <div class="row border rounded-3 lucianTaskHover" (click)="updateTask(task)">
+        <div class="col-10 bg-light p-2">
+          <div class="row">
+            <div class="col"><h4>{{task.title}}</h4></div>
+          </div>
+          <div class="row">
+            <div class="col"><p>{{task.description}}</p></div>
+          </div>
+        </div>
+        <div class="col-2 m-auto">
+          <div class="bi-chevron-compact-right fs-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-3 p-3">
+    <h5>Done</h5>
+    <hr>
+    <div class="mb-1" *ngFor="let task of tasksDone">
+      <div class="row border rounded-3 bg-success">
+        <div class="col-10 p-2">
+          <div class="row">
+            <div class="col"><h4>{{task.title}}</h4></div>
+          </div>
+          <div class="row">
+            <div class="col"><p>{{task.description}}</p></div>
+          </div>
+        </div>
+        <div class="col-2 m-auto">
+          <div class="bi-check-circle fs-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalDeAdaugareTaskNou" tabindex="-1" aria-labelledby="modalDeAdaugareTaskNou" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="taskNouTitlu" class="form-label">Title</label>
+          <input [(ngModel)]="newTask.title" type="text" class="form-control" id="taskNouTitlu">
+        </div>
+        <div class="mb-3">
+          <label for="taskNouDescriere" class="form-label">Description</label>
+          <textarea [(ngModel)]="newTask.description" class="form-control" id="taskNouDescriere" rows="2"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click) = "addNewTask()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

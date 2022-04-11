@@ -1,0 +1,29 @@
+<div class="h-100 w-50 p-5 text-dark bg-light rounded-3 m-auto">
+  <h2 class="mb-5 text-center text-primary">{{this.globals.title}} Login</h2>
+  <div id="loginFormErrorAlert" class="alert alert-danger mb-4 visually-hidden">
+    {{errorMessage}}
+  </div>
+  <form #f="ngForm">
+    <div class="mb-4 row">
+      <label for="loginFormUsername" class="col-sm-3 col-form-label">Email</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="loginFormUsername" name="username"
+               [(ngModel)]="credentials.email">
+      </div>
+    </div>
+    <div class="mb-4 row">
+      <label for="loginFormPassword" class="col-sm-3 col-form-label">Password</label>
+      <div class="col-sm-9">
+        <input type="password" class="form-control" id="loginFormPassword" name="password"
+               [(ngModel)]="credentials.password">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="d-grid">
+          <button class="btn btn-primary" type="submit" (click)="onSubmit();">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
